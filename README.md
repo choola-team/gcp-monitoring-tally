@@ -74,6 +74,8 @@ type Deps struct {
 }
 
 type Out struct {
+    fx.Out
+
     // ...
 }
 
