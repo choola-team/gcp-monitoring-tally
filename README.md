@@ -23,7 +23,7 @@ There are two ways to initialize the stats reporter.
 import (
     reporter "github.com/chupa-io/gcp-monitoring-tally/reporter"
     "github.com/uber-go/tally"
-	"go.uber.org/fx"
+    "go.uber.org/fx"
 )
 
 ...
