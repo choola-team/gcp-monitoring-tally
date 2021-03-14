@@ -11,6 +11,7 @@ import (
 	"go.uber.org/zap"
 	metricpb "google.golang.org/genproto/googleapis/api/metric"
 	monitoringpb "google.golang.org/genproto/googleapis/monitoring/v3"
+	"google.golang.org/protobuf/types/known/timestamppb"
 )
 
 type gcpStatsReporter struct {
@@ -25,6 +26,7 @@ func (g *gcpStatsReporter) formulateTimeSeries(name string, tags map[string]stri
 		tags = make(map[string]string)
 	}
 	tags["name"] = name
+	now := timestamppb.Now()
 	return &monitoringpb.TimeSeries{
 		Metric: &metricpb.Metric{
 			Type:   g.metricType,
@@ -36,6 +38,10 @@ func (g *gcpStatsReporter) formulateTimeSeries(name string, tags map[string]stri
 					Value: &monitoringpb.TypedValue_Int64Value{
 						Int64Value: value,
 					},
+				},
+				Interval: &monitoringpb.TimeInterval{
+					StartTime: now,
+					EndTime:   now,
 				},
 			},
 		},
