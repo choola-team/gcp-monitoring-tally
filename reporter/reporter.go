@@ -3,6 +3,7 @@ package reporter
 import (
 	"context"
 	"fmt"
+	"strings"
 	"time"
 
 	monitoring "cloud.google.com/go/monitoring/apiv3"
@@ -160,17 +161,21 @@ func NewGCPStatsReporter(deps GCPStatsReporterIn) (GCPStatsReporterOut, error) {
 	descriptor, err := c.GetMetricDescriptor(ctx, &monitoringpb.GetMetricDescriptorRequest{
 		Name: fmt.Sprintf("projects/%s/metricDescriptors/%s", deps.GCPConfiguration.ProjectID, deps.GCPConfiguration.MetricType),
 	})
-	if err != nil {
+	if err != nil && !strings.Contains(err.Error(), "NotFound") {
 		return out, err
 	}
-	if descriptor.MetricKind != metricpb.MetricDescriptor_GAUGE {
+	if err == nil && descriptor.MetricKind != metricpb.MetricDescriptor_GAUGE {
 		return out, fmt.Errorf("MetricKind %s is not %s", descriptor.MetricKind.String(), metricpb.MetricDescriptor_GAUGE.String())
+	}
+	logger := deps.Logger
+	if logger == nil {
+		logger = zap.NewExample().Sugar()
 	}
 	reporter := &gcpStatsReporter{
 		metricClient: c,
 		projectID:    deps.GCPConfiguration.ProjectID,
 		metricType:   deps.GCPConfiguration.MetricType,
-		logger:       deps.Logger,
+		logger:       logger,
 	}
 
 	out.GCPStatsReporter = reporter
