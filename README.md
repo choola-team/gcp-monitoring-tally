@@ -54,9 +54,9 @@ func NewScope(deps ScopeDeps) (tally.Scope, error) {
 		Reporter: rep.GCPStatsReporter,
 	}, 5*time.Second)
     deps.Lifecycle.Append(fx.Hook{
-		OnStop: func(c context.Context) error {
-			return closer.Close()
-		},
+        OnStop: func(c context.Context) error {
+        return closer.Close()
+        },
 	})
     return scope
 }
