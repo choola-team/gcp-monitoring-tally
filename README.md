@@ -3,6 +3,13 @@
 
 # Getting Started
 
+## Setting up credentials
+If you haven't already, set up a new authentication credentials as specified in [this documentation](https://cloud.google.com/docs/authentication/production). Make sure it has **Monitoring Metric Writer** role.
+If running locally, please export the following variable corresponding to your secrets path
+```
+export GOOGLE_APPLICATION_CREDENTIALS="<your secrets path>"
+```
+
 ## Installation
 ```
 go get -u github.com/chupa-io/gcp-monitoring-tally
@@ -56,7 +63,8 @@ func NewScope(deps ScopeDeps) (tally.Scope, error) {
 
 var ScopeModule = fx.Provide(NewScope)
 ```
-and in your application code, consume `tally.Scope` dependency.
+
+In your application code, consume `tally.Scope` dependency. Ensure `reporter.GCPStatsReporterModule` has been consumed during runtime.
 
 ```golang
 type Deps struct {
