@@ -52,7 +52,7 @@ func (g *gcpStatsReporter) reportTimeSeries(name string, tags map[string]string,
 	err := g.metricClient.CreateTimeSeries(
 		context.Background(),
 		&monitoringpb.CreateTimeSeriesRequest{
-			Name:       g.projectID,
+			Name:       "projects/" + g.projectID,
 			TimeSeries: []*monitoringpb.TimeSeries{g.formulateTimeSeries(name, tags, value)},
 		},
 	)
