@@ -51,13 +51,13 @@ type ScopeDeps struct {
 
 func NewScope(deps ScopeDeps) (tally.Scope, error) {
     scope, closer := tally.NewRootScope(tally.ScopeOptions{
-		Reporter: rep.GCPStatsReporter,
-	}, 5*time.Second)
+        Reporter: rep.GCPStatsReporter,
+    }, 5*time.Second)
     deps.Lifecycle.Append(fx.Hook{
         OnStop: func(c context.Context) error {
-        return closer.Close()
+            return closer.Close()
         },
-	})
+    })
     return scope
 }
 
