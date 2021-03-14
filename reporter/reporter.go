@@ -21,6 +21,9 @@ type gcpStatsReporter struct {
 }
 
 func (g *gcpStatsReporter) formulateTimeSeries(name string, tags map[string]string, value int64) *monitoringpb.TimeSeries {
+	if tags == nil {
+		tags = make(map[string]string)
+	}
 	tags["name"] = name
 	return &monitoringpb.TimeSeries{
 		Metric: &metricpb.Metric{
