@@ -12,7 +12,7 @@ export GOOGLE_APPLICATION_CREDENTIALS="<your secrets path>"
 
 ## Installation
 ```
-go get -u github.com/chupa-io/gcp-monitoring-tally
+go get -u github.com/choola-team/gcp-monitoring-tally
 ```
 
 ## Initialization
@@ -21,7 +21,7 @@ There are two ways to initialize the stats reporter.
 ### Using [`go.uber.org/fx`](go.uber.org/fx) Dependency Injection
 ```go
 import (
-    reporter "github.com/chupa-io/gcp-monitoring-tally/reporter"
+    reporter "github.com/choola-team/gcp-monitoring-tally/reporter"
     "github.com/uber-go/tally"
     "go.uber.org/fx"
 )
