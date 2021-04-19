@@ -4,7 +4,7 @@
 # Getting Started
 
 ## Setting up credentials
-If you haven't already, set up a new authentication credentials as specified in [this documentation](https://cloud.google.com/docs/authentication/production). Make sure it has **Monitoring Metric Writer** role.
+If you haven't already, set up a new set of authentication credentials as specified in [this documentation](https://cloud.google.com/docs/authentication/production). Make sure it has the **Monitoring Metric Writer** role.
 If running locally, please export the following variable corresponding to your secrets path
 ```
 export GOOGLE_APPLICATION_CREDENTIALS="<your secrets path>"
